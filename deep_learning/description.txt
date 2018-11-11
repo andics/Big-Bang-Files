@@ -1,1 +1,0 @@
-A deep semantic segmentation network for finding position of a suture
