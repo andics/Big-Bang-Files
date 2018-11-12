@@ -52,21 +52,32 @@ end
    
    labeledImgNames  = dir(fullfile(labelFilesFolder, '*.jpg'));
    labeledImgPaths = fullfile(labelFilesFolder, {labeledImgNames.name})';
-   labeledImgPaths = natsort(labeledImgPaths);
+   labeledImgPaths = natsort(labeledImgPaths)
    
    
    %Get paths of original images
    
    DinPath = strfind(filePath, '\');
-   OrgImagesPaths = filePath(1:DinPath(end) - 1)
+   orgImagesPaths = filePath(1:DinPath(end) - 1)
    
-   OrgImgNames = dir(fullfile(OrgImagesPaths, '*.jpg'));
-   OrgImgNames = natsort({OrgImgNames.name});
-   OrgImgNames = OrgImgNames(1:length(labeledImgPaths));
+   orgImgNames = dir(fullfile(orgImagesPaths, '*.jpg'));
+   orgImgNames = natsort({orgImgNames.name});
+   orgImgNames = orgImgNames(1:length(labeledImgPaths));
    
-   OrgImagesPaths = fullfile(OrgImagesPaths, OrgImgNames)'
+   orgImagesPaths = fullfile(orgImagesPaths, orgImgNames)'
+
+   labelIDs = [1];
+   labelNames = cellstr(["suture"]);
+   imgLabeled = imread(labeledImgPaths{1});
+   
+   imgLabeledCat = categorical(imgLabeled, labelIDs, labelNames);
+
+   imgOrg = imread(orgImagesPaths{1});
+   
+%   imshow(labeloverlay(imgOrg,imgLabeledCat));
    
    
+   return;
    
    
    
